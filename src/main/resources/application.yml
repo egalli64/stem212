@@ -1,0 +1,13 @@
+logging:
+  level:
+    com:
+      example: TRACE
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=stem
+    username: stem
+    password: password
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
