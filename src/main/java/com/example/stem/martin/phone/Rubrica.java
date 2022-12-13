@@ -1,4 +1,4 @@
-package com.example.stem.martin;
+package com.example.stem.martin.phone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/phone")
+@RequestMapping("/martin/phone")
 public class Rubrica {
 	private static Logger log = LoggerFactory.getLogger(Rubrica.class);
 	private ContactList svc;

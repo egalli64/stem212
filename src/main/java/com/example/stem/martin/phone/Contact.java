@@ -1,4 +1,4 @@
-package com.example.stem.martin;
+package com.example.stem.martin.phone;
 
 public class Contact {
 	private String name;
