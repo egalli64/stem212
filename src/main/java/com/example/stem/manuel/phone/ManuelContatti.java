@@ -1,13 +1,13 @@
-package com.example.manuel;
+package com.example.stem.manuel.phone;
 
 import java.util.Objects;
 
-public class Contatti {
+public class ManuelContatti {
 	private String firstName;
 	private String lastName;
 	private String number;
 
-	public Contatti(String firstName, String lastName, String number) {
+	public ManuelContatti(String firstName, String lastName, String number) {
 
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -51,7 +51,7 @@ public class Contatti {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Contatti other = (Contatti) obj;
+		ManuelContatti other = (ManuelContatti) obj;
 		return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName)
 				&& Objects.equals(number, other.number);
 	}
