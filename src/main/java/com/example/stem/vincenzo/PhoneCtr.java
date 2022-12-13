@@ -1,4 +1,4 @@
-package com.example.vincenzo;
+package com.example.stem.vincenzo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
