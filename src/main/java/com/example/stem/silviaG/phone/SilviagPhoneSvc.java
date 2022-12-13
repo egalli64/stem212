@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.example.stem.dao.Contact;
 
 @Service
-public class PhoneSvc {
+public class SilviagPhoneSvc {
 	private List<Contact> contacts;
 	
-	public PhoneSvc() {
+	public SilviagPhoneSvc() {
 		this.contacts = new ArrayList<>();
 		this.contacts.add(new Contact("Ale", "H", "345"));
 	}

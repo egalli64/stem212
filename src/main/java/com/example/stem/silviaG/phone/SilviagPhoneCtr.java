@@ -12,11 +12,11 @@ import com.example.stem.dao.Contact;
 
 @Controller
 @RequestMapping("/silviaG/phone")
-public class PhoneCtr {
-    private static Logger log = LoggerFactory.getLogger(PhoneCtr.class);
-    private PhoneSvc svc;
+public class SilviagPhoneCtr {
+    private static Logger log = LoggerFactory.getLogger(SilviagPhoneCtr.class);
+    private SilviagPhoneSvc svc;
     
-    public PhoneCtr (PhoneSvc svc) {
+    public SilviagPhoneCtr (SilviagPhoneSvc svc) {
     	this.svc = svc;
     }
 
@@ -26,14 +26,14 @@ public class PhoneCtr {
         Contact contact = new Contact(firstName, lastName, number);
         svc.add(contact);
         model.addAttribute("contacts", svc.getAll());
-        return "/phoneBook";
+        return "/silviaG/phoneBook";
     }
     
     @GetMapping
     public String home(Model model) {
         log.trace("enter home()");
         model.addAttribute("contacts", svc.getAll());
-        return "/phoneBook";
+        return "/silviaG/phoneBook";
     }
    
 
