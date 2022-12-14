@@ -13,7 +13,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div class="container-fluid" class="wrapper">
+	<div class="container-fluid">
 
 		<nav class="navbar navbar-expand-sm">
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -28,26 +28,46 @@
 
 		<h1>Rubrica telefonica</h1>
 		<br>
+
+		<c:if test="${not empty errorSearch}">
+			<p id="error">${errorSearch}</p>
+		</c:if>
+		<form action="/camilla/phoneBook/search">
+			<div>
+				<div class="row mb-3">
+					<div class="col-sm-4">
+						<input class="form-control" name="string" placeholder="Cerca"
+							value="${string}">
+					</div>
+					<div class="col-sm-5">
+						<button class="btn btn-outline-secondary">Cerca</button>
+						<button class="btn btn-outline-secondary" formaction="/camilla/phoneBook">Reset</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
 		<div class="row">
 			<div class="col-8">
 				<table class="table table-hover table-bordered">
 					<thead>
 						<tr>
-							<th scope="col">Id</th>
 							<th scope="col">Nome</th>
 							<th scope="col">Cognome</th>
 							<th scope="col">Numero</th>
-							<th scope="col">Delete</th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
 						<c:forEach var="contact" items="${contacts}">
 							<tr>
-								<td scope="row">${contact.id}</td>
 								<td scope="row">${contact.firstName}</td>
 								<td scope="row">${contact.lastName}</td>
 								<td scope="row">${contact.phone}</td>
-								<td><a href="/camilla/phoneBook/remove?id=${contact.id}"><img src="/camilla/bin.png" alt="delete" height="20"></a></td>
+								<td><a href="/camilla/phoneBook/remove?id=${contact.id}"><img
+										src="/camilla/bin.png" alt="delete" height="20"></a></td>
+								<td><a href="/camilla/phoneBook/preModify?id=${contact.id}"><img
+										src="/camilla/modify.png" alt="modify" height="20"></a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -65,26 +85,34 @@
 
 			<div>
 				<div class="row mb-3">
-					<label for="inputName" class="col-sm-4 col-form-label">Nome</label>
+					<label class="col-sm-4 col-form-label">Nome</label>
 					<div class="col-sm-5">
-						<input class="form-control" id="inputName" name="firstName"
-							placeholder="Nome">
+						<input class="form-control" name="firstName" placeholder="Nome"
+							value="${badContact.firstName}" required>
 					</div>
 				</div>
 
 				<div class="row mb-3">
-					<label for="inputLast" class="col-sm-4 col-form-label">Cognome</label>
+					<label class="col-sm-4 col-form-label">Cognome</label>
 					<div class="col-sm-5">
-						<input class="form-control" id="inputLast" name="lastName"
-							placeholder="Cognome">
+						<input class="form-control" name="lastName" placeholder="Cognome"
+							value="${badContact.lastName}" required>
 					</div>
 				</div>
 
 				<div class="row mb-3">
-					<label for="inputPhone" class="col-sm-4 col-form-label">Numero</label>
+					<label class="col-sm-4 col-form-label">Numero</label>
 					<div class="col-sm-5">
-						<input class="form-control" id="inputPhone" name="phone"
-							placeholder="Numero">
+						<input class="form-control" name="phone" placeholder="Numero"
+							value="${badContact.phone}" required>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-4"></div>
+					<div class="col-sm-5">
+						<c:if test="${not empty errorNumber}">
+							<p id="error">${errorNumber}</p>
+						</c:if>
 					</div>
 				</div>
 				<div class="row">
@@ -96,28 +124,57 @@
 			</div>
 		</form>
 
-		<br>
-		<h3>Elimina contatto</h3>
-		<c:if test="${not empty errorDelete}">
-			<p id="error">${errorDelete}</p>
+		<c:if test="${not empty contactToBeModified}">
+			<br>
+			<h3>Modifica contatto</h3>
+			<form action="/camilla/phoneBook/modify">
+
+				<div>
+					<input class="form-control" name="id" placeholder="Id"
+						value="${contactToBeModified.id}" type="hidden">
+
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Nome</label>
+						<div class="col-sm-5">
+							<input class="form-control" name="firstName" placeholder="Nome"
+								value="${contactToBeModified.firstName}" required>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Cognome</label>
+						<div class="col-sm-5">
+							<input class="form-control" name="lastName" placeholder="Cognome"
+								value="${contactToBeModified.lastName}" required>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Numero</label>
+						<div class="col-sm-5">
+							<input class="form-control" name="phone" placeholder="Numero"
+								value="${contactToBeModified.phone}" required>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-5">
+							<c:if test="${not empty errorNumberModify}">
+								<p id="error">${errorNumberModify}</p>
+							</c:if>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4"></div>
+						<div class="col-8">
+							<button class="btn btn-outline-secondary">Modifica</button>
+							<button class="btn btn-outline-secondary" formaction="/camilla/phoneBook">Cancella</button>
+						</div>
+					</div>
+				</div>
+			</form>
 		</c:if>
-		<form action="/camilla/phoneBook/remove">
-			<div>
-				<div class="row mb-3">
-					<label for="inputId" class="col-sm-4 col-form-label">Id</label>
-					<div class="col-sm-5">
-						<input class="form-control" id="inputName" name="id"
-							placeholder="Id" type="number">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4"></div>
-					<div class="col-8">
-						<button class="btn btn-outline-secondary">Elimina</button>
-					</div>
-				</div>
-			</div>
-		</form>
+
 	</div>
 </body>
 </html>

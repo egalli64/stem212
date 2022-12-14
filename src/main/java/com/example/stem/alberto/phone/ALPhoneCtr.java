@@ -23,9 +23,21 @@ public class ALPhoneCtr {
 	@GetMapping("/add")
 	public String add(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
 			Model model) {
-		log.trace("enter insert()");
+		firstName = firstName.trim();
+		lastName = lastName.trim();
+		phone = phone.trim();
+		log.trace("enter insert({},{},{})", firstName, lastName, phone);
 		Contact contact = new Contact(firstName, lastName, phone);
-		repo.save(contact);
+		if (firstName.isBlank() || lastName.isBlank() || phone.isBlank()) {
+			model.addAttribute("badContact", contact);
+		} else {
+			try {
+				repo.save(contact);
+			} catch (Exception ex) {
+				log.error("insert failure", ex);
+				model.addAttribute("badContact", contact);
+			}
+		}
 		model.addAttribute("contacts", repo.findAll());
 		return "/alberto/phone/alPhoneBook";
 	}
@@ -33,10 +45,30 @@ public class ALPhoneCtr {
 	@GetMapping("/remove")
 	public String remove(@RequestParam Integer id, Model model) {
 		log.trace("enter remove()");
-		Contact contact = (repo.findById(id).get());
-		repo.delete(contact);
+		repo.findById(id).ifPresentOrElse(c -> repo.delete(c), () -> model.addAttribute("badId", id));
 		model.addAttribute("contacts", repo.findAll());
 		return "/alberto/phone/alPhoneBook";
+	}
+	
+	@GetMapping("/preModify")
+	public String preModify(@RequestParam Integer id, Model model) {
+		log.trace("enter modify()");
+		repo.findById(id).ifPresentOrElse(c -> model.addAttribute("modContact", c), () -> model.addAttribute("modBadId", id));
+		model.addAttribute("contacts", repo.findAll());
+		return"/alberto/phone/alPhoneBook";
+	}
+	
+	@GetMapping("/modify")
+	public String modify(@RequestParam Integer id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
+			Model model) {
+		log.trace("enter modify()");
+		Contact mContact= repo.findById(id).get();
+		mContact.setFirstName(firstName);
+		mContact.setLastName(lastName);
+		mContact.setPhone(phone);
+		repo.save(mContact);
+		model.addAttribute("contacts", repo.findAll());
+		return"/alberto/phone/alPhoneBook";
 	}
 
 	@GetMapping()
