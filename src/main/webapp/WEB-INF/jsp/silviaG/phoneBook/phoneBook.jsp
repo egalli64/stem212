@@ -27,7 +27,7 @@
 		</c:forEach>
 	</table>
 	
-	<form action="/phone/insert">
+	<form action="/silviaG/phone/insert">
 		<h3>Nome e numero da inserire</h3>
 		<input type="text" class="form-control" placeholder="Inserisci nome" name="firstName">
 		<input type="text" class="form-control" placeholder="Inserisci cognome" name="lastName">

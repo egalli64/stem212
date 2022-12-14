@@ -26,14 +26,14 @@ public class SilviagPhoneCtr {
         Contact contact = new Contact(firstName, lastName, number);
         svc.add(contact);
         model.addAttribute("contacts", svc.getAll());
-        return "/silviaG/phoneBook";
+        return "/silviaG/phoneBook/phoneBook";
     }
     
     @GetMapping
     public String home(Model model) {
         log.trace("enter home()");
         model.addAttribute("contacts", svc.getAll());
-        return "/silviaG/phoneBook";
+        return "/silviaG/phoneBook/phoneBook";
     }
    
 
