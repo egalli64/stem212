@@ -49,26 +49,36 @@ public class ALPhoneCtr {
 		model.addAttribute("contacts", repo.findAll());
 		return "/alberto/phone/alPhoneBook";
 	}
-	
+
 	@GetMapping("/preModify")
 	public String preModify(@RequestParam Integer id, Model model) {
 		log.trace("enter modify()");
-		repo.findById(id).ifPresentOrElse(c -> model.addAttribute("modContact", c), () -> model.addAttribute("modBadId", id));
+		repo.findById(id).ifPresentOrElse(c -> model.addAttribute("modContact", c),
+				() -> model.addAttribute("modBadId", id));
 		model.addAttribute("contacts", repo.findAll());
-		return"/alberto/phone/alPhoneBook";
+		return "/alberto/phone/alPhoneBook";
 	}
-	
+
 	@GetMapping("/modify")
-	public String modify(@RequestParam Integer id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
-			Model model) {
+	public String modify(@RequestParam Integer id, @RequestParam String firstName, @RequestParam String lastName,
+			@RequestParam String phone, Model model) {
 		log.trace("enter modify()");
-		Contact mContact= repo.findById(id).get();
+		Contact mContact = repo.findById(id).get();
+//		Contact mContact = repo.findById(id).orElseGet(null);
+//		if (mContact.equals(null)) {
+//			model.addAttribute("modBadId", id);
+//		} else {
+//			mContact.setFirstName(firstName);
+//			mContact.setLastName(lastName);
+//			mContact.setPhone(phone);
+//			repo.save(mContact);
+//		}
 		mContact.setFirstName(firstName);
 		mContact.setLastName(lastName);
 		mContact.setPhone(phone);
 		repo.save(mContact);
 		model.addAttribute("contacts", repo.findAll());
-		return"/alberto/phone/alPhoneBook";
+		return "/alberto/phone/alPhoneBook";
 	}
 
 	@GetMapping()
