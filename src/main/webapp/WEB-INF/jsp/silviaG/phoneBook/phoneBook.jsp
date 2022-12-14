@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>Rubrica telefonica</title>
 	<!-- collegamento a css -->
 	<link rel="stylesheet" type="text/css" href="/silviaG/phoneBook/css/phoneBook.css">
 	<!-- Collegamento a bootstrap -->
@@ -21,6 +21,23 @@
 <body>
 	<h1>Rubrica telefonica</h1>
 	
+	<form action="/silviaG/phone/search">
+		<c:if test="${not empty errorSearchMessage}">
+			<span>${errorSearchMessage}</span>
+		</c:if>
+		<div>
+			<div class="row mb-3">
+				<div class="col-sm-4">
+					<input class="form-control" name="string" placeholder="Cerca">
+				</div>
+				<div class="col-sm-5">
+					<button class="btn btn-success" type="submit">Cerca</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	
 	<div class="container-fluid"> 
        <table class="table table-striped table-hover table-light">
        <thead>
@@ -28,6 +45,7 @@
 	              <td scope="row">Nome</td>
 	              <td scope="row">Cognome</td>
 	              <td scope="row">Numero di telefono</td>
+	              <td scope="row"></td>
 	         </tr>
         </thead>
         <c:forEach var="contact" items="${contacts}">
@@ -35,6 +53,7 @@
 				<td>${contact.firstName}</td>
 				<td>${contact.lastName}</td>
 				<td>${contact.phone}</td>
+				<td><a href="/silviaG/phone/delete?id=${contact.id}" type="submit" class="btn btn-success">Elimina</a></td>
 			</tr>
 		</c:forEach>  
        </table>
@@ -44,18 +63,22 @@
 		<h4>Chi vuoi inserire?</h4>
 		<div class="row g-3">
             <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Nome</label>
-                <input type="text" class="form-control" placeholder="Inserisci nome" name="firstName">
+                <label class="form-label">Nome</label>
+                <input class="form-control" placeholder="Inserisci nome" name="firstName" value="${badContact.firstName}" required>
             </div>
             <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Cognome</label>
-                <input type="text" class="form-control" placeholder="Inserisci cognome" name="lastName">
+                <label class="form-label">Cognome</label>
+                <input type="text" class="form-control" placeholder="Inserisci cognome" name="lastName" value="${badContact.lastName}" required>
             </div>
          </div>
          <div class="row g-3" style="padding-top: 25px">
             <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Numero di telefono</label>
-                <input type="text" class="form-control" placeholder="Inserisci numero" name="phone">
+                <label for="exampleFormControlInput1" class="form-label">Numero di telefono
+                </label>
+                <c:if test="${not empty badContact}">
+                	<span>non accettabile</span>
+                </c:if>
+                <input type="text" class="form-control" placeholder="Inserisci numero" name="phone" value="${badContact.phone}" required>
             </div>
          </div>
          
@@ -64,30 +87,5 @@
          </div>
 	</form>
 	
-	<!-- 
-	<form id="eliminazione" action="/silviaG/phone/delete">
-		<h4>Chi vuoi eliminare?</h4>
-		<div class="row g-3">
-            <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Nome</label>
-                <input type="text" class="form-control" placeholder="Nome da eliminare" name="firstName">
-            </div>
-            <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Cognome</label>
-                <input type="text" class="form-control" placeholder="Cognome da eliminare" name="lastName">
-            </div>
-         </div>
-         <div class="row g-3" style="padding-top: 25px">
-            <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Numero di telefono</label>
-                <input type="text" class="form-control" placeholder="Numero da elimianare" name="phone">
-            </div>
-         </div>
-         
-         <div class="bottoni col-12">
-             <button class="btn btn-success" type="submit">Invia risposte</button>
-         </div>
-	</form>
-	-->
 </body>
 </html>
