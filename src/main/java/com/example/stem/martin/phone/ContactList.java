@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+import com.example.stem.dao.Contact;
+
 @Service
 public class ContactList {
 	private List<Contact> contacts;

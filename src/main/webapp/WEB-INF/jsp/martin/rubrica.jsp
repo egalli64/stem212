@@ -9,29 +9,30 @@
 <body>
     <table>
        <tr>
+       		<td>id</td>
             <td>firstName</td>
             <td>lastName</td>
             <td>number</td>
        </tr>
        <c:forEach var="contact" items="${contacts}">
             <tr>
+            	<td>${contact.id}</td>
                 <td>${contact.firstName}</td>
                 <td>${contact.lastName}</td>
-                <td>${contact.number}</td>
+                <td>${contact.phone}</td>
             </tr>
         </c:forEach>
     </table>
     <form action="/martin/phone/insert">
 	<label><input name="firstName" placeholder="firstName" autofocus></label>
 	<label><input name="lastName" placeholder="firstName" autofocus></label>
-	<label><input name="number" placeholder="number" autofocus></label>
+	<label><input name="phone" placeholder="phone" autofocus></label>
 	<button>insert</button>
 </form>
 
 <form action="/martin/phone/delete" >
-	<label><input name="firstName" placeholder="firstName" autofocus></label>
-	<label><input name="lastName" placeholder="firstName" autofocus></label>
-	<label><input name="number" placeholder="number" autofocus></label>
+	<label><input name="id" placeholder="id" autofocus></label>
+
 	<button>delete</button>
 </form>
 </body>
