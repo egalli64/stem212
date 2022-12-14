@@ -10,7 +10,7 @@ public class ContactList {
 
 	public ContactList() {
 		this.contacts = new ArrayList<>();
-		contacts.add(new Contact("tom", "123"));
+		contacts.add(new Contact("tom","tom","123"));
 	}
 
 	public List<Contact> getAll() {
