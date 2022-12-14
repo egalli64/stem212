@@ -26,4 +26,8 @@ public class PhoneBookSrv {
 		contacts.add(contact);
 		return contacts;
 	}
+
+	public void add(String firstName, String lastName, String phone) {
+		contacts.add(new Contact(firstName, lastName, phone));
+	}
 }

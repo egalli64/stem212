@@ -21,7 +21,7 @@ public class PhoneBookCtr {
 		this.srv = srv;
 	}
 	
-	@GetMapping("/insert")
+	@GetMapping("/marco/phonebook/inserted")
 	public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, Model model) {
 		log.trace("enter insert()");
 		Contact contact = new Contact(firstName, lastName, phone);
