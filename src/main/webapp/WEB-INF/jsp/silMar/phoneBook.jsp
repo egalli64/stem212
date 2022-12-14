@@ -12,12 +12,14 @@
 	<h1 id="title">Phonebook</h1>
 	<table>
 		<tr>
+			<th style="padding-left: 35px;">Id</th>
 			<th style="padding-left: 35px;">First name</th>
 			<th style="padding-left: 35px;">Last name</th>
 			<th style="padding-left: 35px;">Phone</th>
 		</tr>
 		<c:forEach var="contact" items="${contacts}">
 			<tr>
+				<td style="padding-left: 35px;">${contact.id}</td>
 				<td style="padding-left: 35px;">${contact.firstName}</td>
 				<td style="padding-left: 35px;">${contact.lastName}</td>
 				<td style="padding-left: 35px;">${contact.phone}</td>
@@ -28,18 +30,17 @@
 	<form method="get" action="/silMar/phone/insert">
 			<h4 id="insertcontact">Insert New Contact here:</h4>
 			<p>
+			Id:<input type="number" name="id">
 			First name:<input type="text" name="firstName">
 			Last name:<input type="text" name="lastName">
-			Number:<input type="text" name="phone">
+			Phone:<input type="text" name="phone">
 			<input type="submit" value="Insert">
 			</p>
 	</form>
 	<form method="get" action="/silMar/phone/remove">
 			<h4 id="insertcontact">Remove Contact here:</h4>
 			<p>
-			First name:<input type="text" name="firstName">
-			Last name:<input type="text" name="lastName">
-			Number:<input type="text" name="phone">
+			Id:<input type="number" name="id">
 			<input type="submit" value="Remove">
 			</p>
 	</form>
