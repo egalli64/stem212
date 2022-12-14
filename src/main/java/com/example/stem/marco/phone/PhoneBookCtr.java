@@ -27,7 +27,7 @@ public class PhoneBookCtr {
 		Contact contact = new Contact(firstName, lastName, phone);
 		srv.newAdd(contact);
 		model.addAttribute("contacts", srv.getAll());
-		return "/marco/phonebook/inserted";
+		return "/marco/phonebook/phonebook";
 	}
 	
 	@GetMapping()
@@ -36,4 +36,11 @@ public class PhoneBookCtr {
   	model.addAttribute("contacts", srv.getAll());
 		return "/marco/phonebook/phonebook";
 	}
+	
+//	@GetMapping("/remove")
+//	public String remove(@RequestParam String phone, Model model) {
+//		log.trace("enter remove()");
+//		srv.remove(conatct);
+//		reutrn"marco/phonebook/removed";
+//	}
 }
