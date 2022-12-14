@@ -1,4 +1,4 @@
-package com.example.stem.vincenzo;
+package com.example.stem.vincenzo.phone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +41,6 @@ public class PhoneCtr {
 	public String home(Model model) {
 		log.trace("enter home");
 		model.addAttribute("contacts", repo.findAll());
-		return "/vincenzo/phonebook";
+		return "vincenzo/phonebook";
 	}
 }
