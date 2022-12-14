@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container-fluid">
-<h1 >Agenda telefonica</h1>
+<h1 class="mx-auto text-center">AGENDA TELEFONICA</h1>
 <table class="table table-dark table-striped table-bordered table-sm">
 			<tr>
 				<th>Id</th>
@@ -32,11 +32,9 @@
     <hr>
     <h4 class="fw-bold">Inserisci contatto</h4>
     <form method="get" action="/isabella/phone/insert">
-    <div class="form-group">
-    
-               
+    <div class="form-group"> 
           <label for="exampleFormControlInput1" class="form-label">Nome:</label>
-          <input type="text" class="bg-primary text-white p-1.8 w-20"name="firstName" value="${badContact.firstName}">
+          <input type="text" class="bg-primary text-white p-1.8 w-20"name="firstName" value="${badContact.firstName}"> 
           <label for="exampleFormControlInput1" class="form-label">Cognome:</label>
           <input type="text" class="bg-primary text-white p-1.8 w-20" name="lastName" value="${badContact.lastName}">
           <label for="exampleFormControlInput1" class="form-label">Numero di telefono:</label>
@@ -45,16 +43,6 @@
             </div>
        <button class="btn btn-primary">Inserisci</button> <hr>
      </form>
-    <h4 class="fw-bold">Elimina contatto</h4> 
-  	<form method="get" action="/isabella/phone/delete">
-  	 <div class="form-group">
-     <label for="exampleFormControlInput1" class="form-label">Id:</label>
-     <c:if test="${not empty badId}"> <span class="p-3 mb-2 text-danger">Questo Id non esiste!</span></c:if> 
-     <input type="number" class="bg-primary text-white p-1.8 w-20" name="id" value="${badId}"><p/>
-      </div>
-	<button class="btn btn-primary">Elimina</button>
-       <hr>   
-    </form>
     </div>
 </body>
 </html>
