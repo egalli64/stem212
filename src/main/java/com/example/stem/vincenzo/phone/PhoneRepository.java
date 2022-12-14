@@ -1,4 +1,4 @@
-package com.example.stem.vincenzo;
+package com.example.stem.vincenzo.phone;
 
 import org.springframework.data.repository.CrudRepository;
 
