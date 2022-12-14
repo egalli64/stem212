@@ -10,12 +10,14 @@
 <body>
 	<table>
 		<tr>
+			<td>id</td>
 			<td>First name</td>
 			<td>Last name</td>
 			<td>Phone number</td>
 		</tr>
 		<c:forEach var="contact" items="${contacts}">
 			<tr>
+				<td>${contact.id}</td>
 				<td>${contact.firstName}</td>
 				<td>${contact.lastName}</td>
 				<td>${contact.phone}</td>
@@ -23,6 +25,7 @@
 		</c:forEach>
 	</table>
 	<form method="get" action="/Manuel/phone/insert">
+		
 		<p>
 			Nome : <input type="text" name="firstName">
 		</p>
@@ -38,14 +41,9 @@
 	</form>
 	<form method="get" action="/Manuel/phone/delete">
 		<p>
-			Nome : <input type="text" name="firstName">
+			id : <input type="number" name="id">
 		</p>
-		<p>
-			Cognome : <input type="text" name="lastName">
-		</p>
-		<p>
-			Numero : <input type="text" name="number">
-		</p>
+		
 		<p>
 			<input type="submit" value="Elimina contatto">
 		</p>

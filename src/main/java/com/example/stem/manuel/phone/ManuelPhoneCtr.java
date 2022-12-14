@@ -1,5 +1,7 @@
 package com.example.stem.manuel.phone;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,19 +17,20 @@ import com.example.stem.dao.Contact;
 @RequestMapping("/Manuel/phone")
 public class ManuelPhoneCtr {
 	private static Logger log = LoggerFactory.getLogger(ManuelPhoneCtr.class);
-	private ManuelPhoneSvc svc;
-	private PhoneBookRepository repo;
+	//private ManuelPhoneSvc svc;
+	private MPhoneBookRepository repo;
 
-	public ManuelPhoneCtr(ManuelPhoneSvc svc, PhoneBookRepository repo) {
-		this.svc = svc;
+	public ManuelPhoneCtr(ManuelPhoneSvc svc, MPhoneBookRepository repo) {
+		//this.svc = svc;
 		this.repo = repo;
 	}
 
 	@GetMapping("/delete")
-	public String delete(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String number, Model model) {
+	public String delete(@RequestParam Integer id, Model model) {
 		log.trace("delete contact");
-		Contact contatto = new Contact (firstName, lastName, number);
-		repo.delete(contatto);
+		Optional<Contact> contatto = repo.findById(id);
+		contatto.ifPresent(c-> repo.delete(c));
+		
 		model.addAttribute("contacts", repo.findAll());
 		return "/Manuel/telefono";
 	}
@@ -48,7 +51,7 @@ public class ManuelPhoneCtr {
 	@GetMapping
 	public String home(Model model) {
 		log.trace("enter home");
-		model.addAttribute("contact", svc.getAll());
+		model.addAttribute("contacts", repo.findAll());
 		return "/Manuel/telefono";
 	}
 
