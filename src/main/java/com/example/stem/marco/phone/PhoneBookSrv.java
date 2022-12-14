@@ -30,4 +30,8 @@ public class PhoneBookSrv {
 	public void add(String firstName, String lastName, String phone) {
 		contacts.add(new Contact(firstName, lastName, phone));
 	}
+	
+//	public void remove(String phone) {
+//		contacts.remove();
+//	}
 }
