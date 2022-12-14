@@ -1,7 +1,7 @@
 package com.example.stem.alberto.phone;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,29 +13,36 @@ import com.example.stem.dao.Contact;
 @Controller
 @RequestMapping("/alberto/phone")
 public class ALPhoneCtr {
-//	private static Logger log = LoggerFactory.getLogger(PhoneCtr.class);
-	private ALPhoneSvc svc;
+	private static Logger log = LoggerFactory.getLogger(ALPhoneCtr.class);
+	private ALPhoneRepository repo;
 
-	public ALPhoneCtr(ALPhoneSvc svc) {
-		this.svc = svc;
+	public ALPhoneCtr(ALPhoneRepository repo) {
+		this.repo = repo;
 	}
 
 	@GetMapping("/add")
-	public String add(@RequestParam String name, @RequestParam String surname, @RequestParam String number, Model model) {
-		Contact contact = new Contact(name, surname, number);
-		svc.add(contact);
-		model.addAttribute("contacts", svc.getAll());
+	public String add(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
+			Model model) {
+		log.trace("enter insert()");
+		Contact contact = new Contact(firstName, lastName, phone);
+		repo.save(contact);
+		model.addAttribute("contacts", repo.findAll());
 		return "/alberto/phone/alPhoneBook";
 	}
 
 	@GetMapping("/remove")
-	public String remove() {
+	public String remove(@RequestParam Integer id, Model model) {
+		log.trace("enter remove()");
+		Contact contact = (repo.findById(id).get());
+		repo.delete(contact);
+		model.addAttribute("contacts", repo.findAll());
 		return "/alberto/phone/alPhoneBook";
 	}
 
 	@GetMapping()
 	public String home(Model model) {
-		model.addAttribute("contacts", svc.getAll());
+		log.trace("enter home()");
+		model.addAttribute("contacts", repo.findAll());
 		return "/alberto/phone/alPhoneBook";
 	}
 }

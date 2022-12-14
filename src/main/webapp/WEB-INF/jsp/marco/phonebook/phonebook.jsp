@@ -9,7 +9,7 @@
 <body>
 	<h1>Phonebook</h1>
 	<table> 
-		<tr>
+		<tr id="first-row">
 			<th>First name |</th>
 			<th> Last name |</th>
 			<th> Phone</th>
@@ -35,7 +35,7 @@
 		<input type="submit" value="Insert"/>
 	</form>
 	<h3>Contact to remove</h3>
-	<form method="post" action="remove">
+	<form action="/marco/phonebook/remove">
 		<input type="text" name="phone" placeholder="Phone"> 
 		<input type="submit" value="Remove"/>
 	</form>

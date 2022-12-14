@@ -15,17 +15,21 @@ import com.example.stem.dao.Contact;
 public class SilviagPhoneCtr {
     private static Logger log = LoggerFactory.getLogger(SilviagPhoneCtr.class);
     private SilviagPhoneSvc svc;
+    private SilviagPhoneRepository repo;
     
-    public SilviagPhoneCtr (SilviagPhoneSvc svc) {
+    public SilviagPhoneCtr (SilviagPhoneSvc svc, SilviagPhoneRepository repo) {
     	this.svc = svc;
+    	this.repo = repo;
     }
 
     @GetMapping("/insert")
-    public String insert(@RequestParam String firstName,@RequestParam String lastName,@RequestParam String number, Model model) {
+    public String insert(@RequestParam String firstName,@RequestParam String lastName,@RequestParam String phone, Model model) {
         log.trace("enter insert()");
-        Contact contact = new Contact(firstName, lastName, number);
-        svc.add(contact);
-        model.addAttribute("contacts", svc.getAll());
+        Contact contact = new Contact(firstName, lastName, phone);
+        //svc.add(contact);
+        repo.save(contact);
+        //model.addAttribute("contacts", svc.getAll());
+        model.addAttribute("contacts", repo.findAll());
         return "/silviaG/phoneBook/phoneBook";
     }
     

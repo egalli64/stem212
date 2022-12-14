@@ -1,0 +1,21 @@
+@charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif !important;
+    padding:50px 50px;
+    text-align: start;
+    background-color: rgb(49, 47, 47) !important; 
+    color: white !important;
+} 
+
+
+#inserimento {
+	margin-top: 40px;
+}
+
+.bottoni {
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
