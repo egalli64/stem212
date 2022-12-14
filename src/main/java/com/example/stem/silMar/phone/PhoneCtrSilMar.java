@@ -10,48 +10,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.stem.dao.Contact;
 
-//import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
-
 @Controller
 @RequestMapping("/silMar/phone")
 public class PhoneCtrSilMar {
 	private static Logger log = LoggerFactory.getLogger(PhoneCtrSilMar.class);
-	//private PhoneSvcSilMar svc;
 	private PhoneBookRepo repo;
 
-	public PhoneCtrSilMar(PhoneSvcSilMar svc,PhoneBookRepo repo) {
-		//this.svc = svc;
+	public PhoneCtrSilMar(PhoneBookRepo repo) {
 		this.repo = repo;
 	}
 
 	@GetMapping("/insert")
-	public String insert(@RequestParam String firstName, @RequestParam String lastName,@RequestParam String phone, Model model) {
-		log.trace("enter insert()");
+	public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
+			Model model) {
+		log.trace("enter insert");
 		Contact contact = new Contact(firstName, lastName, phone);
-		//svc.insert(contact);
-		repo.save(contact);
+		if (firstName.isBlank() || lastName.isBlank() || phone.isBlank()) {
+			model.addAttribute("badContact", contact);
+		} else {
+			try {
+				repo.save(contact);
+			} catch (Exception ex) {
+				log.error("Insert Failure", ex);
+				model.addAttribute("badContact", contact);
+			}
+		}
+
 		model.addAttribute("contacts", repo.findAll());
-		//model.addAttribute("contacts", svc.getAll());
 		return "/silMar/phoneBook";
 	}
-	
+
 	@GetMapping("/remove")
 	public String remove(@RequestParam Integer id, Model model) {
-		log.trace("enter remove()");
-		//Optional<Contact> contact = repo.findById(id);
-		//contact.ifPresent(c -> repo.remove(c));
-		Contact contact =(repo.findById(id).get());
-		repo.delete(contact);
+		log.trace("enter remove");
+		repo.findById(id).ifPresentOrElse(c -> repo.delete(c), () -> model.addAttribute("badId", id));
 		model.addAttribute("contacts", repo.findAll());
-		//repo.remove(contact);
-		//svc.insert(contact);
 		return "/silMar/phoneBook";
 	}
-	
+
 	@GetMapping
 	public String home(Model model) {
-		log.trace("enter home()");
+		log.trace("enter home");
 		model.addAttribute("contacts", repo.findAll());
-		return "silMar/phoneBook";
+		return "/silMar/phoneBook";
 	}
 }

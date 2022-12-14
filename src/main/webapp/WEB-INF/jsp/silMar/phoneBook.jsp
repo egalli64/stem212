@@ -6,43 +6,68 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/silMar/css/phoneSilMar.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <title>Phonebook</title>
 </head>
-<body>
-	<h1 id="title">Phonebook</h1>
-	<table>
-		<tr>
-			<th style="padding-left: 35px;">Id</th>
-			<th style="padding-left: 35px;">First name</th>
-			<th style="padding-left: 35px;">Last name</th>
-			<th style="padding-left: 35px;">Phone</th>
+<body  id="body">
+	<div class="container-fluid">
+	 <div class="row">
+		<div class="col-1" style="padding-top: 5px;">
+			<figure>
+            	<img src="/silMar/pic/contacts.PNG" title="Fixed size" width="110px" alt="a photo">
+   			</figure>
+   		</div>
+   		<div class="col-3" style="padding-top: 62px;">
+			<h2 id="title" style="padding-left: 15px;">PHONEBOOK</h2>
+		</div>
+	</div>
+	
+	<table class="table table-striped table-hover table-light">
+	<thead>
+		<tr id="first-row" class="table">
+			<td scope="row" style="padding-left: 20px;">Id</td>
+			<td scope="row" style="padding-left: 20px;">First name</td>
+			<td scope="row" style="padding-left: 20px;">Last name</td>
+			<td scope="row" style="padding-left: 20px;">Phone</td>
 		</tr>
+		</thead>
 		<c:forEach var="contact" items="${contacts}">
 			<tr>
-				<td style="padding-left: 35px;">${contact.id}</td>
-				<td style="padding-left: 35px;">${contact.firstName}</td>
-				<td style="padding-left: 35px;">${contact.lastName}</td>
-				<td style="padding-left: 35px;">${contact.phone}</td>
+				<td style="padding-left: 20px;">${contact.id}</td>
+				<td style="padding-left: 20px;">${contact.firstName}</td>
+				<td style="padding-left: 20px;">${contact.lastName}</td>
+				<td style="padding-left: 20px;">${contact.phone}</td>
+				<td><a href="/silMar/phoneBook/remove?id=${contact.id}"><img src="/silMar/pic/basket.PNG" alt="remove" width="15"></a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br>
 	<form method="get" action="/silMar/phone/insert">
-			<h4 id="insertcontact">Insert New Contact here:</h4>
+			<h4>Insert New Contact here:</h4>
 			<p>
-			Id:<input type="number" name="id">
-			First name:<input type="text" name="firstName">
-			Last name:<input type="text" name="lastName">
-			Phone:<input type="text" name="phone">
+			
+			First name:<input required type="text" name="firstName" value="${badContact.firstName}">
+			Last name:<input required type="text" name="lastName" value="${badContact.lastName}">
+			Phone:<input required type="text" name="phone" value="${badContact.phone}">
 			<input type="submit" value="Insert">
-			</p>
-	</form>
-	<form method="get" action="/silMar/phone/remove">
-			<h4 id="insertcontact">Remove Contact here:</h4>
+			<br>
 			<p>
-			Id:<input type="number" name="id">
-			<input type="submit" value="Remove">
+			<c:if test="${not empty badContact}">
+				<h6><span id="error">Not acceptable</span></h6>
+			</c:if>
 			</p>
 	</form>
+<!-- 	<form method="get" action="/silMar/phone/remove"> -->
+<!-- 			<h4>Remove Contact here:</h4> -->
+<!-- 			<p> -->
+<%-- 			Id:<input type="number" name="id" value="${badId}"> --%>
+<!-- 			<input type="submit" value="Remove"> -->
+<%-- 			<c:if test="${not empty badId}"> --%>
+<!-- 				<h6><span id="error">Not acceptable</span></h6> -->
+<%-- 			</c:if> --%>
+<!-- 			</p> -->
+<!-- 	</form> -->
+</div>
 </body>
 </html>

@@ -1,11 +1,17 @@
-#insertcontact {
-	color: rgb(8, 52, 134);
-}
 
 #title {
-	color: rgb(8, 52, 134);
+	color: white;
+	background: grey;
 }
 
 #body {
-	background: rgb (100, 118, 151);
+	background:buttonface;
+}
+
+#error {
+	background: red;
+}
+
+.table {
+	background:grey;
 }
