@@ -19,26 +19,27 @@ public class Rubrica {
 	}
 
 	@GetMapping("/insert")
-	public String insert(@RequestParam String name, @RequestParam String number, Model model) {
+	public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String number,
+			Model model) {
 		log.trace("enter insert");
-		Contact contact = new Contact(name, number);
+		Contact contact = new Contact(firstName, lastName, number);
 		svc.add(contact);
 		model.addAttribute("contacts", svc.getAll());
-		return "/rubrica";
+		return "/martin/rubrica";
 	}
 
 	@GetMapping("/delete")
 	public String delete() {
 		log.trace("enter delete");
 
-		return "/rubrica";
+		return "/martin/rubrica";
 	}
 
 	@GetMapping
 	public String home(Model model) {
 		log.trace("enter home");
 		model.addAttribute("contacts", svc.getAll());
-		return "/rubrica";
+		return "/martin/rubrica";
 
 	}
 }
