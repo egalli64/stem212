@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.stem.dao.Contact;
+
 @Service
 public class PhoneSvc {
 	List<Contact> result = new ArrayList<>();
@@ -14,12 +16,12 @@ public class PhoneSvc {
 		return result;
 	}
 
-	public List<Contact> Add(Contact contact) {
+	public List<Contact> add(Contact contact) {
 		result.add(contact);
 		return result;
 	}
 
-	public List<Contact> Delete(Contact contact) {
+	public List<Contact> delete(Contact contact) {
 		result.remove(contact);
 		return result;
 	}

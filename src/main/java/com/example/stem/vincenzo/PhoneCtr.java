@@ -7,36 +7,40 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.stem.dao.Contact;
+
 @Controller
-@RequestMapping("vincenzo/phone")
+@RequestMapping("/vincenzo/phone")
 public class PhoneCtr {
 	private static Logger log = LoggerFactory.getLogger(PhoneCtr.class);
-	private PhoneSvc svc;
+	private PhoneRepository repo;
 
-	public PhoneCtr(PhoneSvc svc) {
-		this.svc = svc;
+	public PhoneCtr(PhoneRepository repo) {
+		this.repo = repo;
 	}
 
 	@GetMapping("/insert")
 	public String insert(String firstName, String lastName, String number, Model model) {
 		log.trace("enter insert()");
 		Contact contact = new Contact(firstName, lastName, number);
-		model.addAttribute("contacts", svc.Add(contact));
-		return "phonebook";
+		repo.save(contact);
+		model.addAttribute("contacts", repo.findAll());
+		return "/vincenzo/phonebook";
 	}
 
 	@GetMapping("/delete")
 	public String delete(String firstName, String lastName, String number, Model model) {
 		log.trace("enter insert()");
 		Contact contact = new Contact(firstName, lastName, number);
-		model.addAttribute("contacts", svc.Delete(contact));
-		return "phonebook";
+		repo.delete(contact);
+		model.addAttribute("contacts", repo.findAll());
+		return "/vincenzo/phonebook";
 	}
 
 	@GetMapping
 	public String home(Model model) {
 		log.trace("enter home");
-		model.addAttribute("contacts", svc.getAll());
-		return "phonebook";
+		model.addAttribute("contacts", repo.findAll());
+		return "/vincenzo/phonebook";
 	}
 }
