@@ -28,6 +28,15 @@ public class PhoneBookControllerC {
 		return "/camilla/phoneBook/phoneBook";
 	}
 
+	@GetMapping("/preInsert")
+	public String preInsert(Model model) {
+		log.trace("preModify method");
+		model.addAttribute("insert", "insert");
+		model.addAttribute("plus", "plus");
+		model.addAttribute("contacts", repo.findAll());
+		return "/camilla/phoneBook/phoneBook";
+	}
+
 	@GetMapping("/insert")
 	public String add(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
 			Model model) {
@@ -49,6 +58,8 @@ public class PhoneBookControllerC {
 				log.error("Non sono riuscito a inserire", ex);
 				model.addAttribute("badContact", contact);
 				model.addAttribute("errorNumber", "Numero di telefono non accettabile");
+				model.addAttribute("insert", "insert");
+				model.addAttribute("plus", "plus");
 			}
 			model.addAttribute("contacts", repo.findAll());
 		}
@@ -88,6 +99,7 @@ public class PhoneBookControllerC {
 		Optional<Contact> contact = repo.findById(id);
 		if (contact.isPresent()) {
 			model.addAttribute("contactToBeModified", contact.get());
+			model.addAttribute("plus", "plus");
 		}
 		model.addAttribute("contacts", repo.findAll());
 		return "/camilla/phoneBook/phoneBook";
@@ -108,6 +120,7 @@ public class PhoneBookControllerC {
 				log.error("Non sono riuscito a inserire", ex);
 				model.addAttribute("contactToBeModified", contact.get());
 				model.addAttribute("errorNumberModify", "Numero di telefono non accettabile");
+				model.addAttribute("plus", "plus");
 			}
 		}
 		model.addAttribute("contacts", repo.findAll());

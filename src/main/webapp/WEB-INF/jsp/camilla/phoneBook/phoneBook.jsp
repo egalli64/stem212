@@ -41,7 +41,7 @@
 					</div>
 					<div class="col-sm-5">
 						<button class="btn btn-outline-secondary">Cerca</button>
-						<button class="btn btn-outline-secondary" formaction="/camilla/phoneBook">Reset</button>
+						<a href="/camilla/phoneBook" class="btn btn-outline-secondary">Reset</a>
 					</div>
 				</div>
 			</div>
@@ -75,57 +75,65 @@
 			</div>
 		</div>
 
-		<br>
-		<hr>
-		<h3>Aggiungi contatto</h3>
-		<c:if test="${not empty errorInsert}">
-			<p id="error">${errorInsert}</p>
+		<c:if test="${empty plus}">
+			<a href="/camilla/phoneBook/preInsert"><img
+				src="/camilla/insert.png" alt="insert" height="20"></a>
 		</c:if>
-		<form action="/camilla/phoneBook/insert">
+		<br>
+		<c:if test="${not empty insert}">
+			<hr>
+			<h3>Aggiungi contatto</h3>
+			<c:if test="${not empty errorInsert}">
+				<p id="error">${errorInsert}</p>
+			</c:if>
+			<form action="/camilla/phoneBook/insert">
 
-			<div>
-				<div class="row mb-3">
-					<label class="col-sm-4 col-form-label">Nome</label>
-					<div class="col-sm-5">
-						<input class="form-control" name="firstName" placeholder="Nome"
-							value="${badContact.firstName}" required>
+				<div>
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Nome</label>
+						<div class="col-sm-5">
+							<input class="form-control" name="firstName" placeholder="Nome"
+								value="${badContact.firstName}" required>
+						</div>
 					</div>
-				</div>
 
-				<div class="row mb-3">
-					<label class="col-sm-4 col-form-label">Cognome</label>
-					<div class="col-sm-5">
-						<input class="form-control" name="lastName" placeholder="Cognome"
-							value="${badContact.lastName}" required>
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Cognome</label>
+						<div class="col-sm-5">
+							<input class="form-control" name="lastName" placeholder="Cognome"
+								value="${badContact.lastName}" required>
+						</div>
 					</div>
-				</div>
 
-				<div class="row mb-3">
-					<label class="col-sm-4 col-form-label">Numero</label>
-					<div class="col-sm-5">
-						<input class="form-control" name="phone" placeholder="Numero"
-							value="${badContact.phone}" required>
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Numero</label>
+						<div class="col-sm-5">
+							<input class="form-control" name="phone" placeholder="Numero"
+								value="${badContact.phone}" required>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-5">
+							<c:if test="${not empty errorNumber}">
+								<p id="error">${errorNumber}</p>
+							</c:if>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4"></div>
+						<div class="col-8">
+							<button class="btn btn-outline-secondary">Aggiungi</button>
+							<a href="/camilla/phoneBook" class="btn btn-outline-secondary">Annulla</a>
+						</div>
 					</div>
 				</div>
-				<div class="row mb-3">
-					<div class="col-sm-4"></div>
-					<div class="col-sm-5">
-						<c:if test="${not empty errorNumber}">
-							<p id="error">${errorNumber}</p>
-						</c:if>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4"></div>
-					<div class="col-8">
-						<button class="btn btn-outline-secondary">Aggiungi</button>
-					</div>
-				</div>
-			</div>
-		</form>
+			</form>
+		</c:if>
 
 		<c:if test="${not empty contactToBeModified}">
 			<br>
+			<hr>
 			<h3>Modifica contatto</h3>
 			<form action="/camilla/phoneBook/modify">
 
@@ -168,7 +176,7 @@
 						<div class="col-4"></div>
 						<div class="col-8">
 							<button class="btn btn-outline-secondary">Modifica</button>
-							<button class="btn btn-outline-secondary" formaction="/camilla/phoneBook">Cancella</button>
+							<a href="/camilla/phoneBook" class="btn btn-outline-secondary">Annulla</a>
 						</div>
 					</div>
 				</div>
