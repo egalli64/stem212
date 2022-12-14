@@ -21,16 +21,16 @@ public class PhoneBookCtr {
 		this.srv = srv;
 	}
 	
-	@GetMapping("/marco/phonebook/inserted")
+	@GetMapping("/insert")
 	public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, Model model) {
 		log.trace("enter insert()");
 		Contact contact = new Contact(firstName, lastName, phone);
 		srv.newAdd(contact);
 		model.addAttribute("contacts", srv.getAll());
-		return "/marco/phonebook/phonebook";
+		return "/marco/phonebook/inserted";
 	}
 	
-	@GetMapping
+	@GetMapping()
 	public String home(Model model) {
 		log.trace("enter home");
   	model.addAttribute("contacts", srv.getAll());

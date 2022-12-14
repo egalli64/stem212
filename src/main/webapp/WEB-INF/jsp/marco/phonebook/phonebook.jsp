@@ -24,7 +24,11 @@
 		</c:forEach>
 	</table>
 	<h3>Contact to add</h3>
-	<form method="post" action="insert">
+	<c:if test="${not empty error}">
+		<p id="error">${error}</p>
+	</c:if>
+	
+	<form action="/marco/phonebook/insert">
 		<input type="text" name="firstName" placeholder="First name"> 
 		<input type="text" name="lastName" placeholder="Last name"> 
 		<input type="text" name="phone" placeholder="Phone"> 
