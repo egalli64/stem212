@@ -1,5 +1,7 @@
 package com.example.stem.vincenzo.phone;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -23,17 +25,48 @@ public class PhoneCtr {
 	public String insert(String firstName, String lastName, String number, Model model) {
 		log.trace("enter insert()");
 		Contact contact = new Contact(firstName, lastName, number);
-		repo.save(contact);
+		try {
+			repo.save(contact);
+		} catch (Exception ex) {
+			log.error("Insert failure");
+			model.addAttribute("badContact", contact);
+		}
 		model.addAttribute("contacts", repo.findAll());
 		return "/vincenzo/phonebook";
 	}
 
 	@GetMapping("/delete")
-	public String delete(String firstName, String lastName, String number, Model model) {
+	public String delete(Integer ID, Model model) {
 		log.trace("enter insert()");
-		Contact contact = new Contact(firstName, lastName, number);
-		repo.delete(contact);
+		try {
+			repo.deleteById(ID);
+		} catch (Exception ex) {
+			log.error("Delete failure");
+			model.addAttribute("badID", ID);
+		}
 		model.addAttribute("contacts", repo.findAll());
+		return "/vincenzo/phonebook";
+	}
+
+	@GetMapping("/call")
+	public String call(Integer id, Model model) {
+		log.trace("enter insert()");
+		Optional<Contact> contact = repo.findById(id);
+		if (contact.isPresent()) {
+			model.addAttribute("contact", contact.get());
+			return "/vincenzo/calling";
+		} else {
+			model.addAttribute("badCallID", id);
+			model.addAttribute("contacts", repo.findAll());
+			return "/vincenzo/phonebook";
+		}
+	}
+
+	@GetMapping("/modify")
+	public String modify(Integer id, Model model) {
+		log.trace("enter insert()");
+		Optional<Contact> contact = repo.findById(id);
+		model.addAttribute("flag", contact.isPresent());
 		return "/vincenzo/phonebook";
 	}
 
@@ -41,6 +74,6 @@ public class PhoneCtr {
 	public String home(Model model) {
 		log.trace("enter home");
 		model.addAttribute("contacts", repo.findAll());
-		return "vincenzo/phonebook";
+		return "/vincenzo/phonebook";
 	}
 }
