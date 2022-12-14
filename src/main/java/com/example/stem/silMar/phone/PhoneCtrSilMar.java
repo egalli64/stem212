@@ -15,9 +15,11 @@ import com.example.stem.dao.Contact;
 public class PhoneCtrSilMar {
 	private static Logger log = LoggerFactory.getLogger(PhoneCtrSilMar.class);
 	private PhoneSvcSilMar svc;
+	//private PhoneBookRepo repo;
 
-	public PhoneCtrSilMar(PhoneSvcSilMar svc) {
+	public PhoneCtrSilMar(PhoneSvcSilMar svc,PhoneBookRepo repo) {
 		this.svc = svc;
+		//this.repo = repo;
 	}
 
 	@GetMapping("/insert")
@@ -25,10 +27,12 @@ public class PhoneCtrSilMar {
 		log.trace("enter insert()");
 		Contact contact = new Contact(firstName, lastName, phone);
 		svc.add(contact);
+//		repo.save(contact);
+//		model.addAttribute("contacts", repo.findAll());
 		model.addAttribute("contacts", svc.getAll());
 		return "/silMar/phoneBook";
 	}
-		
+	
 	@GetMapping
 	public String home(Model model) {
 		log.trace("enter home()");
