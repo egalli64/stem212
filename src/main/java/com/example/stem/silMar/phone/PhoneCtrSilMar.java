@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.stem.dao.Contact;
+
 @Controller
 @RequestMapping("/silMar/phone")
 public class PhoneCtrSilMar {
@@ -19,19 +21,18 @@ public class PhoneCtrSilMar {
 	}
 
 	@GetMapping("/insert")
-	public String insert(@RequestParam String firstname, @RequestParam String lastname,@RequestParam String number, Model model) {
+	public String insert(@RequestParam String firstName, @RequestParam String lastName,@RequestParam String phone, Model model) {
 		log.trace("enter insert()");
-		ContactSilMar contact = new ContactSilMar(firstname, lastname, number);
+		Contact contact = new Contact(firstName, lastName, phone);
 		svc.add(contact);
 		model.addAttribute("contacts", svc.getAll());
-		return "phoneBook";
+		return "/silMar/phoneBook";
 	}
-	
-	
+		
 	@GetMapping
 	public String home(Model model) {
-		log.trace("enter home");
+		log.trace("enter home()");
 		model.addAttribute("contacts", svc.getAll());
-		return "phoneBook";
+		return "silMar/phoneBook";
 	}
 }

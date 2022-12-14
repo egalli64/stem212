@@ -5,21 +5,23 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.stem.dao.Contact;
+
 @Service
 public class PhoneSvcSilMar {
-	private List<ContactSilMar> result;
-	
+	private List<Contact> contacts;
+
 	public PhoneSvcSilMar() {
-		this.result = new ArrayList<>();
+		this.contacts = new ArrayList<>();
+		this.contacts.add(new Contact("Alexander", "Hunold", "3456754"));
+
 	}
-	
-	public List<ContactSilMar> getAll() {
-		this.result.add(new ContactSilMar("Alexander", "Hunold", "34567428"));
-		return this.result;
+
+	public List<Contact> getAll() {
+		return contacts;
 	}
-	
-	public List<ContactSilMar> add(ContactSilMar contact) {
-		this.result.add(contact);
-		return this.result;
+
+	public void add(Contact conctat) {
+		contacts.add(conctat);
 	}
 }
