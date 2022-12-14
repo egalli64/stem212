@@ -15,21 +15,44 @@ import com.example.stem.dao.Contact;
 @Controller
 @RequestMapping("/marco/phone")
 public class PhoneBookCtr {
-	
+
 	private static Logger log = LoggerFactory.getLogger(PhoneBookCtr.class);
-	
+
 	private PhoneBookRep repo;
 
 	public PhoneBookCtr(PhoneBookRep repo) {
 		this.repo = repo;
 	}
 	
+	public static boolean containsNumbers(String string) {
+        if (string == null || string.isEmpty()) {
+            return false;
+        }
+        for (int i = 0; i < string.length(); ++i) {
+            if (Character.isDigit(string.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+	
+	public static boolean containsLetters(String string) {
+        if (string == null || string.isEmpty()) {
+            return false;
+        }
+        for (int i = 0; i < string.length(); ++i) {
+            if (Character.isLetter(string.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+	}   
 //	private PhoneBookSrv srv;
 //	
 //	public PhoneBookCtr(PhoneBookSrv srv) {
 //		this.srv = srv;
 //	}
-	
+
 //	@GetMapping("/insert")
 //	public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, Model model) {
 //		log.trace("enter insert()");
@@ -38,29 +61,46 @@ public class PhoneBookCtr {
 //		model.addAttribute("contacts", srv.getAll());
 //		return "/marco/phonebook/phonebook";
 //	}
-	
+
 	@GetMapping("/insert")
-	public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone, Model model) {
+	public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
+			Model model) {
 		log.trace("enter insert()");
-		Contact contact = new Contact(firstName, lastName, phone);
-		repo.save(contact);
-		model.addAttribute("contacts", repo.findAll());
+		if (firstName.isEmpty() || firstName.isBlank() || lastName.isEmpty() || lastName.isBlank() || phone.isEmpty()
+				|| phone.isBlank()) {
+			model.addAttribute("contacts", repo.findAll());
+			model.addAttribute("errorInsertBlank", "All fields must be filled in");
+		} else if (containsNumbers(firstName) == true) {
+			model.addAttribute("contacts", repo.findAll());
+			model.addAttribute("errorInsertNumb", "Invalid first name");
+		} else if (containsNumbers(lastName) == true) {
+			model.addAttribute("contacts", repo.findAll());
+			model.addAttribute("errorInsertNumb", "Invalid last name");
+		} else if (containsLetters(phone) == true) {
+			model.addAttribute("contacts", repo.findAll());
+			model.addAttribute("errorInsertNumb", "Invalid phone");
+		} else {
+			Contact contact = new Contact(firstName, lastName, phone);
+			repo.save(contact);
+			model.addAttribute("contacts", repo.findAll());
+		}
+		
 		return "/marco/phonebook/phonebook";
 	}
-	
+
 //	@GetMapping()
 //	public String home(Model model) {
 //		log.trace("enter home");
 //  	model.addAttribute("contacts", srv.getAll());
 //		return "/marco/phonebook/phonebook";
 //	}
-	
+
 	@GetMapping
 	public String home(Model model) {
 		model.addAttribute("contacts", repo.findAll());
 		return "/marco/phonebook/phonebook";
 	}
-	
+
 	@GetMapping("/remove")
 	public String remove(@RequestParam Integer id, Model model) {
 		log.trace("remove contact");
