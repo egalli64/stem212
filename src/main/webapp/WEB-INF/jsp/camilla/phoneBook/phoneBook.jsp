@@ -52,8 +52,20 @@
 				<table class="table table-hover table-bordered">
 					<thead>
 						<tr>
-							<th scope="col">Nome</th>
-							<th scope="col">Cognome</th>
+							<c:if test="${empty string}">
+								<th scope="col"><a
+									href="/camilla/phoneBook/orderByFirstName" class="linkBlack">Nome</a></th>
+								<th scope="col"><a
+									href="/camilla/phoneBook/orderByLastName" class="linkBlack">Cognome</a></th>
+							</c:if>
+							<c:if test="${not empty string}">
+								<th scope="col"><a
+									href="/camilla/phoneBook/searchAndOrderByFirstName?string=${string}"
+									class="linkBlack">Nome</a></th>
+								<th scope="col"><a
+									href="/camilla/phoneBook/searchAndOrderByLastName?string=${string}"
+									class="linkBlack">Cognome</a></th>
+							</c:if>
 							<th scope="col">Numero</th>
 							<th scope="col"></th>
 						</tr>

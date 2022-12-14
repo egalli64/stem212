@@ -10,3 +10,8 @@ hr {
 #error {
     color: red;
 }
+
+.linkBlack{
+	color: black !important;
+	text-decoration: none;
+}

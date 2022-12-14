@@ -89,8 +89,27 @@ public class PhoneBookControllerC {
 		} else {
 			model.addAttribute("contacts", repo.findByStringIn(string));
 			model.addAttribute("string", string);
+			model.addAttribute("plus", "plus");
 			return "/camilla/phoneBook/phoneBook";
 		}
+	}
+	
+	@GetMapping("/searchAndOrderByFirstName")
+	public String searchAndOrderByFirstName(@RequestParam String string, Model model) {
+		log.trace("orderByFirstName method");
+		model.addAttribute("contacts", repo.findByStringInAndOrderByFirstName(string));
+		model.addAttribute("string", string);
+		model.addAttribute("plus", "plus");
+		return "/camilla/phoneBook/phoneBook";
+	}
+	
+	@GetMapping("/searchAndOrderByLastName")
+	public String searchAndOrderByLastName(@RequestParam String string, Model model) {
+		log.trace("orderByLastName method");
+		model.addAttribute("contacts", repo.findByStringInAndOrderByLastName(string));
+		model.addAttribute("string", string);
+		model.addAttribute("plus", "plus");
+		return "/camilla/phoneBook/phoneBook";
 	}
 
 	@GetMapping("/preModify")
@@ -124,6 +143,20 @@ public class PhoneBookControllerC {
 			}
 		}
 		model.addAttribute("contacts", repo.findAll());
+		return "/camilla/phoneBook/phoneBook";
+	}
+
+	@GetMapping("/orderByFirstName")
+	public String orderByFirstName(Model model) {
+		log.trace("orderByFirstName method");
+		model.addAttribute("contacts", repo.orderByFirstName());
+		return "/camilla/phoneBook/phoneBook";
+	}
+	
+	@GetMapping("/orderByLastName")
+	public String orderByLastName(Model model) {
+		log.trace("orderByLastName method");
+		model.addAttribute("contacts", repo.orderByLastName());
 		return "/camilla/phoneBook/phoneBook";
 	}
 }
