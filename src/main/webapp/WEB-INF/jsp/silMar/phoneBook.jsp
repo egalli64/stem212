@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="/css/phone.css">
+<link rel="stylesheet" type="text/css" href="/silMar/css/phoneSilMar.css">
 <title>Phonebook</title>
 </head>
 <body>
+	<h1 id="title">Phonebook</h1>
 	<table>
 		<tr>
 			<th style="padding-left: 35px;">First name</th>
@@ -24,13 +25,22 @@
 		</c:forEach>
 	</table>
 	<br>
-	<form method="get" action="silMar/phone/insert">
+	<form method="get" action="/silMar/phone/insert">
 			<h4 id="insertcontact">Insert New Contact here:</h4>
 			<p>
-			First name:<input type="text" name="firstname">
-			Last name:<input type="text" name="lastname">
+			First name:<input type="text" name="firstName">
+			Last name:<input type="text" name="lastName">
 			Number:<input type="text" name="phone">
 			<input type="submit" value="Insert">
+			</p>
+	</form>
+	<form method="get" action="/silMar/phone/remove">
+			<h4 id="insertcontact">Remove Contact here:</h4>
+			<p>
+			First name:<input type="text" name="firstName">
+			Last name:<input type="text" name="lastName">
+			Number:<input type="text" name="phone">
+			<input type="submit" value="Remove">
 			</p>
 	</form>
 </body>

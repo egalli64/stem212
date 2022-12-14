@@ -9,19 +9,20 @@ import com.example.stem.dao.Contact;
 
 @Service
 public class PhoneSvcSilMar {
-	private List<Contact> contacts;
+private List<Contact> contacts = new ArrayList<>();
+	
+    public List<Contact> getAll() {
+        return contacts;
+    }
+    
+    public List<Contact> insert(Contact contact) {
+    	contacts.add(contact);
+    	return contacts;
+    }
+    
+    public List<Contact> remove(Contact contact){
+    	contacts.remove(contact);
+    	return contacts;
+    }
 
-	public PhoneSvcSilMar() {
-		this.contacts = new ArrayList<>();
-		this.contacts.add(new Contact("Alexander", "Hunold", "3456754"));
-
-	}
-
-	public List<Contact> getAll() {
-		return contacts;
-	}
-
-	public void add(Contact conctat) {
-		contacts.add(conctat);
-	}
 }

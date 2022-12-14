@@ -26,10 +26,15 @@ public class PhoneCtrSilMar {
 	public String insert(@RequestParam String firstName, @RequestParam String lastName,@RequestParam String phone, Model model) {
 		log.trace("enter insert()");
 		Contact contact = new Contact(firstName, lastName, phone);
-		svc.add(contact);
+		svc.insert(contact);
 //		repo.save(contact);
 //		model.addAttribute("contacts", repo.findAll());
 		model.addAttribute("contacts", svc.getAll());
+		return "/silMar/phoneBook";
+	}
+	
+	@GetMapping("/remove")
+	public String remove() {
 		return "/silMar/phoneBook";
 	}
 	
