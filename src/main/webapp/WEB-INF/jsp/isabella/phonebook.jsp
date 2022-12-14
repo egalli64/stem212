@@ -4,16 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/isabella/css/isabella.css">
 <title>Agenda telefonica</title>
 </head>
 <body>
-<h1>Agenda telefonica</h1>
-<table>
+<div class="container-fluid">
+<h1 >Agenda telefonica</h1>
+<table class="table table-dark table-striped table-bordered table-sm">
 			<tr>
 				<th>Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone number</th>
+                <th>Delete</th>
             </tr>
         <c:forEach var="contact" items="${contacts}">
             <tr>
@@ -21,21 +25,36 @@
                 <td>${contact.firstName}</td>
                 <td>${contact.lastName}</td>
                 <td>${contact.phone}</td>
+                <td><a href="/isabella/phone/delete?id=${contact.id}"><button class="btn btn-primary">Elimina</button></a></td>
             </tr>
         </c:forEach>
     </table>
-    <hr>Inserisci contatto
+    <hr>
+    <h4 class="fw-bold">Inserisci contatto</h4>
     <form method="get" action="/isabella/phone/insert">
-    	<p>Nome: <input type="text" name="firstName"><p/>
-     	<p>Cognome: <input type="text" name="lastName"><p/>
-     	<p>Numero: <input type="text" name="phone"><p/>
-       <button>Inserisci</button> <hr>
+    <div class="form-group">
+    
+               
+          <label for="exampleFormControlInput1" class="form-label">Nome:</label>
+          <input type="text" class="bg-primary text-white p-1.8 w-20"name="firstName" value="${badContact.firstName}">
+          <label for="exampleFormControlInput1" class="form-label">Cognome:</label>
+          <input type="text" class="bg-primary text-white p-1.8 w-20" name="lastName" value="${badContact.lastName}">
+          <label for="exampleFormControlInput1" class="form-label">Numero di telefono:</label>
+          <input type="text" class="bg-primary text-white p-1.8 w-20" name="phone" value="${badContact.phone}">
+          <p><c:if test="${not empty badContact}"> <span class="p-3 mb-2 text-danger">Contatto non accettabile!</span></c:if></p>
+            </div>
+       <button class="btn btn-primary">Inserisci</button> <hr>
      </form>
-     Elimina contatto 
+    <h4 class="fw-bold">Elimina contatto</h4> 
   	<form method="get" action="/isabella/phone/delete">
-    <p>Id: <input type="number" name="id"><p/>
-	<button>Elimina</button>
+  	 <div class="form-group">
+     <label for="exampleFormControlInput1" class="form-label">Id:</label>
+     <c:if test="${not empty badId}"> <span class="p-3 mb-2 text-danger">Questo Id non esiste!</span></c:if> 
+     <input type="number" class="bg-primary text-white p-1.8 w-20" name="id" value="${badId}"><p/>
+      </div>
+	<button class="btn btn-primary">Elimina</button>
        <hr>   
     </form>
+    </div>
 </body>
 </html>

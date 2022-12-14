@@ -26,7 +26,7 @@ public class IsabellaPhoneCtr {
 	public String delete(@RequestParam Integer id, Model model) {
 		log.trace("delete contact");
 		Optional<Contact> contact = repo.findById(id);
-		contact.ifPresent(c -> repo.delete(c));
+		contact.ifPresentOrElse(c -> repo.delete(c), () -> model.addAttribute("badId", id));
 		model.addAttribute("contacts", repo.findAll());
 		return "/isabella/phonebook";
 	}
@@ -36,7 +36,17 @@ public class IsabellaPhoneCtr {
 			Model model) {
 		log.trace("enter insert()");
 		Contact contact = new Contact(firstName, lastName, phone);
-		repo.save(contact);
+		if (firstName.isBlank() || lastName.isBlank() || phone.isBlank()) {
+			model.addAttribute("badContact", contact);
+		} else {
+			try {
+				repo.save(contact);
+			} catch (Exception ex) {
+				log.error("Inserimento fallito", ex);
+				model.addAttribute("badConcact", contact);
+			}
+		}
+
 		model.addAttribute("contacts", repo.findAll());
 		return "/isabella/phonebook";
 	}
