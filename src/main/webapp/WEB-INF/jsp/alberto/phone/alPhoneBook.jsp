@@ -27,14 +27,13 @@
 		</c:forEach>
 	</table>
 	<form action="/alberto/phone/add">
-			<input name="name" placeholder="nome"> 
-			<input name="surname" placeholder="cognome"> 
-			<input name="number" placeholder="numero">
+			<input name="firstName" placeholder="nome"> 
+			<input name="LastName" placeholder="cognome"> 
+			<input name="phone" placeholder="numero">
 		<button>Aggiungi contatto</button>
 	</form>
 	<form action="/alberto/phone/remove">
-			<input name="name" placeholder="nome"> 
-			<input name="surname" placeholder="cognome"> 
+			<input name="id" placeholder="ID da rimuovere"> 
 		<button>Rimuovi contatto</button>
 	</form>
 </body>
