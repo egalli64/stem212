@@ -11,10 +11,10 @@
 	<h1>Phonebook</h1>
 	<table> 
 		<tr id="first-row">
-			<th> ID |</th>
-			<th>First name |</th>
-			<th> Last name |</th>
-			<th> Phone</th>
+			<th>ID</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Phone</th>
 	</table>
 	<table>
 		<c:forEach var="contact" items="${contacts}">
@@ -27,10 +27,12 @@
 		</c:forEach>
 	</table>
 	<h3>Contact to add</h3>
-	<c:if test="${not empty error}">
-		<p id="error">${error}</p>
-	</c:if>
-	
+	<c:if test="${not empty errorInsertBlank}">
+			<p id="error">${errorInsertBlank}</p>
+		</c:if>
+	<c:if test="${not empty errorInsertNumb}">
+			<p id="error">${errorInsertNumb}</p>
+		</c:if>
 	<form action="/marco/phone/insert">
 		<input type="text" name="firstName" placeholder="First name"> 
 		<input type="text" name="lastName" placeholder="Last name"> 
