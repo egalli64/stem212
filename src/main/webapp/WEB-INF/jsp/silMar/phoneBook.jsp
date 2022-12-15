@@ -42,7 +42,7 @@
 			<td scope="row" style="padding-left: 20px;">Id</td>
 			<td scope="row" style="padding-left: 20px;">First name</td>
 			<td scope="row" style="padding-left: 20px;">Last name</td>
-			<td scope="row" style="padding-left: 20px;">Phone</td>
+			<td scope="row" style="padding-left: 20px;">Phone number</td>
 		</tr>
 		</thead>
 		<c:forEach var="contact" items="${contacts}">
@@ -60,9 +60,9 @@
 			<h4>Insert New Contact here:</h4>
 			<p>
 			
-			First name:<input required type="text" name="firstName" value="${badContact.firstName}">
-			Last name:<input required type="text" name="lastName" value="${badContact.lastName}">
-			Phone:<input required type="text" name="phone" value="${badContact.phone}">
+			<input required type="text" name="firstName" placeholder="First name" value="${badContact.firstName}">
+			<input required type="text" name="lastName" placeholder="Last name" value="${badContact.lastName}">
+			<input required type="text" name="phone" placeholder="Phone number" value="${badContact.phone}">
 			<input type="submit" value="Insert">
 			<br>
 			<p>

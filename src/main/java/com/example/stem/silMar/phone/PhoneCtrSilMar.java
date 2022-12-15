@@ -53,7 +53,7 @@ public class PhoneCtrSilMar {
 		log.trace("search contacts");
 		if (string.isBlank()) {
 			model.addAttribute("contacts", repo.findAll());
-			model.addAttribute("errorSearchMessage", "Inserire Nome");
+			model.addAttribute("errorSearchMessage", "fill this field");
 			return "/silMar/phoneBook";
 		} else {
 			model.addAttribute("contacts", repo.findByStringIn(string));
