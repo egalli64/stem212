@@ -23,30 +23,30 @@ public class PhoneBookCtr {
 	public PhoneBookCtr(PhoneBookRep repo) {
 		this.repo = repo;
 	}
-	
+
 	public static boolean containsNumbers(String string) {
-        if (string == null || string.isEmpty()) {
-            return false;
-        }
-        for (int i = 0; i < string.length(); ++i) {
-            if (Character.isDigit(string.charAt(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
-	
+		if (string == null || string.isEmpty()) {
+			return false;
+		}
+		for (int i = 0; i < string.length(); ++i) {
+			if (Character.isDigit(string.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static boolean containsLetters(String string) {
-        if (string == null || string.isEmpty()) {
-            return false;
-        }
-        for (int i = 0; i < string.length(); ++i) {
-            if (Character.isLetter(string.charAt(i))) {
-                return true;
-            }
-        }
-        return false;
-	}   
+		if (string == null || string.isEmpty()) {
+			return false;
+		}
+		for (int i = 0; i < string.length(); ++i) {
+			if (Character.isLetter(string.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
 //	private PhoneBookSrv srv;
 //	
 //	public PhoneBookCtr(PhoneBookSrv srv) {
@@ -65,6 +65,9 @@ public class PhoneBookCtr {
 	@GetMapping("/insert")
 	public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
 			Model model) {
+		firstName = firstName.trim();
+		lastName = lastName.trim();
+		phone = phone.trim();
 		log.trace("enter insert()");
 		if (firstName.isEmpty() || firstName.isBlank() || lastName.isEmpty() || lastName.isBlank() || phone.isEmpty()
 				|| phone.isBlank()) {
@@ -84,7 +87,7 @@ public class PhoneBookCtr {
 			repo.save(contact);
 			model.addAttribute("contacts", repo.findAll());
 		}
-		
+
 		return "/marco/phonebook/phonebook";
 	}
 
@@ -106,6 +109,28 @@ public class PhoneBookCtr {
 		log.trace("remove contact");
 		Optional<Contact> contact = repo.findById(id);
 		contact.ifPresent(c -> repo.delete(c));
+		model.addAttribute("contacts", repo.findAll());
+		return "/marco/phonebook/phonebook";
+	}
+
+	@GetMapping("/preModify")
+	public String preModify(@RequestParam Integer id, Model model) {
+		log.trace("enter preModify()");
+		repo.findById(id).ifPresentOrElse(c -> model.addAttribute("modContact", c),
+				() -> model.addAttribute("modBadId", id));
+		model.addAttribute("contacts", repo.findAll());
+		return "/marco/phonebook/phonebook";
+	}
+
+	@GetMapping("/modify")
+	public String modify(@RequestParam Integer id, @RequestParam String firstName, @RequestParam String lastName,
+			@RequestParam String phone, Model model) {
+		log.trace("enter modify()");
+		Contact modContact = repo.findById(id).get();
+		modContact.setFirstName(firstName);
+		modContact.setLastName(lastName);
+		modContact.setPhone(phone);
+		repo.save(modContact);
 		model.addAttribute("contacts", repo.findAll());
 		return "/marco/phonebook/phonebook";
 	}
