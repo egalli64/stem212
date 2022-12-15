@@ -47,6 +47,19 @@ public class PhoneCtrSilMar {
 		model.addAttribute("contacts", repo.findAll());
 		return "/silMar/phoneBook";
 	}
+	
+	@GetMapping("/search")
+	public String search(@RequestParam String string, Model model) {
+		log.trace("search contacts");
+		if (string.isBlank()) {
+			model.addAttribute("contacts", repo.findAll());
+			model.addAttribute("errorSearchMessage", "fill this field");
+			return "/silMar/phoneBook";
+		} else {
+			model.addAttribute("contacts", repo.findByStringIn(string));
+			return "/silMar/phoneBook";
+		}
+	}
 
 	@GetMapping
 	public String home(Model model) {

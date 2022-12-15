@@ -66,15 +66,22 @@
 		<h2>Modify a contact</h2>
 		<form action="/vincenzo/phone/modify">
 			<label>ID</label>
-			<c:if test="${false flag}">
+			<c:if test="${not empty badModifyID}">
 				<span>does not exist</span>
 			</c:if>
-			<input type=text name="ID">
+			<input type=text name="id">
 			<button>OK</button>
-			<c:if test="${true flag}">
-				<span>exist</span>
-			</c:if>
 		</form>
+		<c:if test="${not empty contact}">
+			<form action="/vincenzo/phone/exchange">
+				<input name="id" value="${modifyID}" type="hidden">
+				<label>First name</label> <input type=text name="firstName"
+					value="${contact.firstName}"> <label>Last name</label> <input
+					type=text name="lastName" value="${contact.lastName}"> <label>Number</label>
+				<input type=text name="number" value="${contact.phone}">
+				<button>OK</button>
+			</form>
+		</c:if>
 	</div>
 </body>
 </html>

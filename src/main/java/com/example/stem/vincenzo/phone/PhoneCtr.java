@@ -66,10 +66,31 @@ public class PhoneCtr {
 	public String modify(Integer id, Model model) {
 		log.trace("enter insert()");
 		Optional<Contact> contact = repo.findById(id);
-		model.addAttribute("flag", contact.isPresent());
+		if (contact.isPresent()) {
+			model.addAttribute("contact", contact.get());
+		} else {
+			model.addAttribute("badModifyID", id);
+		}
+		model.addAttribute("contacts", repo.findAll());
+		model.addAttribute("modifyID", id);
 		return "/vincenzo/phonebook";
 	}
 
+	@GetMapping("/exchange")
+	public String exchange(Integer id, String firstName, String lastName, String number, Model model) {
+		log.trace("enter insert()");
+		Contact contact = new Contact(firstName, lastName, number);
+		repo.deleteById(id);
+		try {
+			repo.save(contact);
+		} catch (Exception ex) {
+			log.error("Insert failure");
+			model.addAttribute("badContact", contact);
+		}
+		model.addAttribute("contacts", repo.findAll());
+		return "/vincenzo/phonebook";
+	}
+	
 	@GetMapping
 	public String home(Model model) {
 		log.trace("enter home");
