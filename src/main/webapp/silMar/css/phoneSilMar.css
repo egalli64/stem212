@@ -1,0 +1,17 @@
+
+#title {
+	color: white;
+	background: grey;
+}
+
+#body {
+	background:buttonface;
+}
+
+#error {
+	background: red;
+}
+
+.table {
+	background:grey;
+}

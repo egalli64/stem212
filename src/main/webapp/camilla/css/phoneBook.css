@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+hr {
+    margin-top: 0px !important;
+    width: 100%;
+    height: 4px;
+    background: black;
+}
+
+#error {
+    color: red;
+}
+
+.linkBlack{
+	color: black !important;
+	text-decoration: none;
+}
