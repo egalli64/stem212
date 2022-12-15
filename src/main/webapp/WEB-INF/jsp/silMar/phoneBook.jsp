@@ -38,7 +38,7 @@
 				<td style="padding-left: 20px;">${contact.firstName}</td>
 				<td style="padding-left: 20px;">${contact.lastName}</td>
 				<td style="padding-left: 20px;">${contact.phone}</td>
-				<td><a href="/silMar/phoneBook/remove?id=${contact.id}"><img src="/silMar/pic/basket.PNG" alt="remove" width="15"></a></td>
+				<td><a href="/silMar/phone/remove?id=${contact.id}"><img src="/silMar/pic/basket.PNG" alt="remove" width="15"></a></td>
 			</tr>
 		</c:forEach>
 	</table>
