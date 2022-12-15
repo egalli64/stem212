@@ -13,3 +13,5 @@ spring:
       suffix: .jsp
   jpa:
     show-sql: true
+Server:
+  port: 8081
