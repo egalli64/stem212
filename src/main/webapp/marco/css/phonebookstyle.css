@@ -3,6 +3,10 @@ body
 	font:16px Arial, sans-serif
 }
 
+#error {
+    color: #f70000;
+}
+
 table,
 td,
 th
