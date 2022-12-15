@@ -7,8 +7,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=stem
     username: stem
     password: password
-  main:
-    allow-bean-definition-overriding: true
   mvc:
     view:
       prefix: /WEB-INF/jsp/
