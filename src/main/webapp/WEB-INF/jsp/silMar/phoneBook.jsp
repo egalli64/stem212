@@ -13,15 +13,28 @@
 <body  id="body">
 	<div class="container-fluid">
 	 <div class="row">
-		<div class="col-1" style="padding-top: 5px;">
+		<div class="offset-4 col-2" style="padding-top: 5px;">
 			<figure>
-            	<img src="/silMar/pic/contacts.PNG" title="Fixed size" width="110px" alt="a photo">
+            	<img src="/silMar/pic/icoContacts.png" title="Fixed size" width="150px" alt="a photo">
    			</figure>
    		</div>
-   		<div class="col-3" style="padding-top: 62px;">
-			<h2 id="title" style="padding-left: 15px;">PHONEBOOK</h2>
-		</div>
+<!--    		<div class="col-3" style="padding-top: 62px;"> -->
+<!-- 			<h2 id="title" style="padding-left: 15px;">PHONEBOOK</h2> -->
+<!-- 		</div> -->
 	</div>
+	<form action="/silMar/phone/search">
+		<c:if test="${not empty errorSearchMessage}">
+			<span>${errorSearchMessage}</span>
+		</c:if>
+		<div>
+			<div class="row mb-3">
+				<div class="col-sm-4">
+					<input name="string">
+					<input type="submit" value="Search">
+				</div>
+			</div>
+		</div>
+	</form>
 	
 	<table class="table table-striped table-hover table-light">
 	<thead>
